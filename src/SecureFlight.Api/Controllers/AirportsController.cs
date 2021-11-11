@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SecureFlight.Api.Models;
+using SecureFlight.Api.Utils;
 using SecureFlight.Core.Entities;
 using SecureFlight.Core.Interfaces;
 
@@ -23,6 +26,8 @@ namespace SecureFlight.Api.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<AirportDataTransferObject>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ErrorResponseActionResult))]
         public async Task<IActionResult> Get()
         {
             var airports = (await _airportService.GetAllAsync()).Result
@@ -37,6 +42,8 @@ namespace SecureFlight.Api.Controllers
         }
 
         [HttpPut]
+        [ProducesResponseType(typeof(AirportDataTransferObject), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ErrorResponseActionResult))]
         public IActionResult Put(AirportDataTransferObject airport)
         {
             var result = _airportRepository.Update(new Airport
