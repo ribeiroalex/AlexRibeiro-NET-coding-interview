@@ -1,8 +1,8 @@
 ![BEON LOGO](https://beon.studio/blog/wp-content/themes/twentybeon/app/images/beon-purple.png)
 
-# .Net Core / Entity Framework Core Live Coding Challenge
+# .Net Core / Entity Framework Core Coding Exercise
 
-Before joining the live coding challenge, you should have set up the local environment for the application. Install the Nuget Packages and make sure you can run the project `SecureFlight.Api`. Also, we recommend you read the code so that you are not caught off guard.
+Before joining the coding interview, you should have set up the local environment for the application. Install the Nuget Packages and make sure you can run the project `SecureFlight.Api`. Also, we recommend you read the code so that you are not caught off guard.
 
 # What does the live coding looks like?
 
