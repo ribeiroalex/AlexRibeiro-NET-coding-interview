@@ -1,40 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿namespace SecureFlight.Core;
 
-namespace SecureFlight.Core
+public class OperationResult
 {
-    public class OperationResult
+    protected OperationResult()
     {
-        public OperationResult()
-        {
-            this.Succeeded = false;
-        }
+        this.Succeeded = false;
+    }
 
-        public OperationResult(bool succeeded)
-            : this()
-        {
-            this.Succeeded = succeeded;
-        }
+    private OperationResult(bool succeeded)
+        : this()
+    {
+        this.Succeeded = succeeded;
+    }
 
-        public OperationResult(Error error)
-            : this()
-        {
-            this.Error = error;
-        }
+    protected OperationResult(Error error)
+        : this()
+    {
+        this.Error = error;
+    }
 
-        public bool Succeeded { get; protected set; }
+    public bool Succeeded { get; protected init; }
 
-        public Error Error { get; set; }
+    public Error Error { get; init; }
 
-        public static implicit operator bool(OperationResult value)
-        {
-            return value.Succeeded;
-        }
+    public static implicit operator bool(OperationResult value)
+    {
+        return value.Succeeded;
+    }
 
-        public static implicit operator OperationResult(bool value)
-        {
-            return new OperationResult(value);
-        }
+    public static implicit operator OperationResult(bool value)
+    {
+        return new OperationResult(value);
     }
 }

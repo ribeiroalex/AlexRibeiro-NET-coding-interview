@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace SecureFlight.Core.Interfaces
-{
-    public interface IRepository<TEntity>
-        where TEntity : class
-    {
-        Task<IReadOnlyList<TEntity>> GetAllAsync();
+namespace SecureFlight.Core.Interfaces;
 
-        TEntity Update(TEntity entity);
-    }
+public interface IRepository<TEntity>
+    where TEntity : class
+{
+    Task<IReadOnlyList<TEntity>> GetAllAsync();
+
+    Task<IReadOnlyList<TEntity>> FilterAsync(Expression<Func<TEntity, bool>> predicate);
+
+    TEntity Update(TEntity entity);
 }

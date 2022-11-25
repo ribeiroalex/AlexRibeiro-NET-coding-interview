@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿namespace SecureFlight.Core.Enums;
 
-namespace SecureFlight.Core.Enums
+public enum FlightStatus
 {
-    public enum FlightStatus
-    {
-        Active,
-        Redirected,
-        Landed,
-        Delayed,
-        Cancelled
-    }
+    Active,
+    Redirected,
+    Landed,
+    Delayed,
+    Cancelled
 }
