@@ -17,12 +17,14 @@ public class PassengersController : SecureFlightBaseController
 {
     private readonly IService<Passenger> _personService;
     private readonly IRepository<Passenger> _passengerRepository;
+    private readonly IMapper _mapper;
 
     public PassengersController(IService<Passenger> personService, IRepository<Passenger> passengerRepository, IMapper mapper)
         : base(mapper)
     {
         _personService = personService;
         _passengerRepository = passengerRepository;
+        _mapper = mapper;
     }
 
     [HttpGet]
@@ -34,12 +36,12 @@ public class PassengersController : SecureFlightBaseController
         return GetResult<IReadOnlyList<Passenger>, IReadOnlyList<PassengerDataTransferObject>>(passengers);
     }
     
-    [HttpGet]
+    [HttpGet("{flightId}")]
     [ProducesResponseType(typeof(IEnumerable<PassengerDataTransferObject>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ErrorResponseActionResult))]
     public async Task<IActionResult> GetPassengersByFlight(long flightId)
     {
         var passengers = await _passengerRepository.FilterAsync(p => p.Flights.Any(x => x.Id == flightId));
-        return Ok(passengers);
+        return Ok(_mapper.Map<IReadOnlyList<PassengerDataTransferObject>>(passengers));
     }
 }
