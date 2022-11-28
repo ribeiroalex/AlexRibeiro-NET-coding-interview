@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
-namespace SecureFlight.Core.Entities
+namespace SecureFlight.Core.Entities;
+
+public class Passenger : Person
 {
-    public class Passenger : Person
+    public Passenger()
     {
-        public Passenger()
-        {
-            this.Flights = new HashSet<Flight>();
-        }
-        public ICollection<Flight> Flights { get; set; }
-
-        public List<PassengerFlight> PassengerFlights { get; set; }
+        this.Flights = new HashSet<Flight>();
     }
+    public ICollection<Flight> Flights { get; set; }
+
+    public List<PassengerFlight> PassengerFlights { get; set; }
 }

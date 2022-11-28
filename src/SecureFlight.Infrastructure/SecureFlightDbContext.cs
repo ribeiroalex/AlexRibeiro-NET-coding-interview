@@ -1,33 +1,31 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using SecureFlight.Core.Entities;
 using SecureFlight.Infrastructure.Configurations;
 
-namespace SecureFlight.Infrastructure
+namespace SecureFlight.Infrastructure;
+
+public class SecureFlightDbContext : DbContext
 {
-    public class SecureFlightDbContext : DbContext
+    public SecureFlightDbContext(DbContextOptions<SecureFlightDbContext> options)
+        : base(options)
     {
-        public SecureFlightDbContext(DbContextOptions<SecureFlightDbContext> options)
-            : base(options)
-        {
             
-        }
+    }
 
-        public DbSet<Airport> Airports { get; set; }
+    public DbSet<Airport> Airports { get; set; }
 
-        public DbSet<Passenger> Passengers { get; set; }
+    public DbSet<Passenger> Passengers { get; set; }
         
-        public DbSet<Flight> Flights { get; set; }
+    public DbSet<Flight> Flights { get; set; }
 
-        public DbSet<FlightStatus> FlightStatus { get; set; }
+    public DbSet<FlightStatus> FlightStatus { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.ApplyConfiguration(new AirportConfiguration());
-            modelBuilder.ApplyConfiguration(new FlightConfiguration());
-            modelBuilder.ApplyConfiguration(new FlightStatusConfiguration());
-            modelBuilder.ApplyConfiguration(new PassengerConfiguration());
-            modelBuilder.ApplyConfiguration(new PassengerFlightConfiguration());
-        }
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.ApplyConfiguration(new AirportConfiguration());
+        modelBuilder.ApplyConfiguration(new FlightConfiguration());
+        modelBuilder.ApplyConfiguration(new FlightStatusConfiguration());
+        modelBuilder.ApplyConfiguration(new PassengerConfiguration());
+        modelBuilder.ApplyConfiguration(new PassengerFlightConfiguration());
     }
 }

@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace SecureFlight.Core
+namespace SecureFlight.Core;
+
+public abstract class InnerError
 {
-    public abstract class InnerError
-    {
-        public string Code { get; set; }
+    public string Code { get; set; }
 
-        [Required]
-        public abstract string ErrorType { get; }
-    }
+    [Required]
+    public abstract string ErrorType { get; }
 }

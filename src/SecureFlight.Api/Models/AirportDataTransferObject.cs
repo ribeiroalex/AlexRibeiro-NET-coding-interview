@@ -1,13 +1,12 @@
-﻿namespace SecureFlight.Api.Models
+﻿namespace SecureFlight.Api.Models;
+
+public class AirportDataTransferObject
 {
-    public class AirportDataTransferObject
-    {
-        public string Code { get; set; }
+    public string Code { get; init; }
 
-        public string Name { get; set; }
+    public string Name { get; init; }
 
-        public string City { get; set; }
+    public string City { get; init; }
 
-        public string Country { get; set; }
-    }
+    public string Country { get; init; }
 }

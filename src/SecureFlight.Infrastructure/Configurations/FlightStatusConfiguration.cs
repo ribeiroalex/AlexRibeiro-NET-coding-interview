@@ -1,32 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SecureFlight.Core.Entities;
 
-namespace SecureFlight.Infrastructure.Configurations
+namespace SecureFlight.Infrastructure.Configurations;
+
+public class FlightStatusConfiguration : IEntityTypeConfiguration<FlightStatus>
 {
-    public class FlightStatusConfiguration : IEntityTypeConfiguration<FlightStatus>
+    public void Configure(EntityTypeBuilder<FlightStatus> builder)
     {
-        public void Configure(EntityTypeBuilder<FlightStatus> builder)
-        {
-            builder.HasKey(x => x.Id);
+        builder.HasKey(x => x.Id);
 
-            builder.Property(x => x.Id).HasConversion<int>();
+        builder.Property(x => x.Id).HasConversion<int>();
 
-            builder.HasMany(x => x.Flights)
-                .WithOne(f => f.Status)
-                .HasForeignKey(f => f.FlightStatusId);
+        builder.HasMany(x => x.Flights)
+            .WithOne(f => f.Status)
+            .HasForeignKey(f => f.FlightStatusId);
 
-            builder.HasData(Enum.GetValues(typeof(Core.Enums.FlightStatus))
-                .Cast<Core.Enums.FlightStatus>()
-                .Select(e => new FlightStatus
-                {
-                    Id = e,
-                    Description = e.ToString()
-                }));
-        }
+        builder.HasData(Enum.GetValues(typeof(Core.Enums.FlightStatus))
+            .Cast<Core.Enums.FlightStatus>()
+            .Select(e => new FlightStatus
+            {
+                Id = e,
+                Description = e.ToString()
+            }));
     }
 }

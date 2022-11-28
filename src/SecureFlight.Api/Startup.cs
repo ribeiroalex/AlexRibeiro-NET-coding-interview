@@ -47,6 +47,7 @@ namespace SecureFlight.Api
             });
 
             services.AddControllers(options => options.Filters.Add(typeof(ErrorResultFilter)));
+            services.AddAutoMapper(typeof(Program));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
