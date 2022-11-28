@@ -17,6 +17,7 @@ public class ErrorResultFilter : IAsyncResultFilter
                 StatusCode = casted.Result.Error.Code switch
                 {
                     ErrorCode.InternalError => StatusCodes.Status500InternalServerError,
+                    ErrorCode.NotFound => StatusCodes.Status404NotFound,
                     _ => StatusCodes.Status400BadRequest
                 },
             };

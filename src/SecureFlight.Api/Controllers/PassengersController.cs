@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SecureFlight.Api.Models;
 using SecureFlight.Api.Utils;
+using SecureFlight.Core;
 using SecureFlight.Core.Entities;
 using SecureFlight.Core.Interfaces;
 
@@ -42,6 +43,20 @@ public class PassengersController : SecureFlightBaseController
     public async Task<IActionResult> GetPassengersByFlight(long flightId)
     {
         var passengers = await _passengerRepository.FilterAsync(p => p.Flights.Any(x => x.Id == flightId));
+        if (!passengers.Any())
+        {
+            return new ErrorResponseActionResult
+            {
+                Result = new ErrorResponse
+                {
+                    Error = new Error
+                    {
+                        Code = ErrorCode.NotFound,
+                        Message = $"No passengers were found for the flight {flightId}"
+                    }
+                }
+            };
+        }
         return Ok(_mapper.Map<IReadOnlyList<PassengerDataTransferObject>>(passengers));
     }
 }
