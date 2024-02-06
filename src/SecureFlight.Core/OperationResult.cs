@@ -13,15 +13,15 @@ public class OperationResult
         this.Succeeded = succeeded;
     }
 
-    protected OperationResult(Error error)
+    protected OperationResult(Error errorResult)
         : this()
     {
-        this.Error = error;
+        this.ErrorResult = errorResult;
     }
 
     public bool Succeeded { get; protected init; }
 
-    public Error Error { get; init; }
+    public Error ErrorResult { get; init; }
 
     public static implicit operator bool(OperationResult value)
     {

@@ -4,11 +4,7 @@ namespace SecureFlight.Core.Entities;
 
 public class Passenger : Person
 {
-    public Passenger()
-    {
-        this.Flights = new HashSet<Flight>();
-    }
-    public ICollection<Flight> Flights { get; set; }
+    public ICollection<Flight> Flights { get; set; } = new HashSet<Flight>();
 
-    public List<PassengerFlight> PassengerFlights { get; set; }
+    public ICollection<PassengerFlight> PassengerFlights { get; set; } = new HashSet<PassengerFlight>();
 }

@@ -1,26 +1,48 @@
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
+using SecureFlight.Api.Utils;
+using SecureFlight.Core.Interfaces;
+using SecureFlight.Core.Services;
+using SecureFlight.Infrastructure;
+using SecureFlight.Infrastructure.Repositories;
 
-namespace SecureFlight.Api
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
 {
-    public class Program
+    c.SwaggerDoc("v1", new OpenApiInfo
     {
-        public static void Main(string[] args)
-        {
-            CreateHostBuilder(args).Build().Run();
-        }
+        Title = "SecureFlight API",
+        Version = "v1",
+    });
+});
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
+builder.Services.AddControllers(options => options.Filters.Add(typeof(ErrorResultFilter)));
+
+builder.Services.AddDbContext<SecureFlightDbContext>(options => options.UseInMemoryDatabase("SecureFlight"));
+builder.Services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
+builder.Services.AddScoped(typeof(IService<>), typeof(BaseService<>));
+builder.Services.AddAutoMapper(typeof(Program));
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        using (var context = scope.ServiceProvider.GetRequiredService<SecureFlightDbContext>())
+        {
+            context.Database.EnsureCreated();
+        }
     }
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
+
+app.MapControllers();
+app.UseHttpsRedirection();
+app.Run();

@@ -4,11 +4,6 @@ namespace SecureFlight.Core.Entities;
 
 public class Airport
 {
-    public Airport()
-    {
-        this.OriginFlights = new HashSet<Flight>();
-        this.DestinationFlights = new HashSet<Flight>();
-    }
     public string Code { get; set; }
 
     public string Name { get; set; }
@@ -17,7 +12,7 @@ public class Airport
 
     public string Country { get; set; }
 
-    public ICollection<Flight> OriginFlights { get; set; }
+    public ICollection<Flight> OriginFlights { get; set; } = new HashSet<Flight>();
 
-    public ICollection<Flight> DestinationFlights { get; set; }
+    public ICollection<Flight> DestinationFlights { get; set; } = new HashSet<Flight>();
 }

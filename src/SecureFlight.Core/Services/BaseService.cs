@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using SecureFlight.Core.Interfaces;
 
@@ -15,6 +17,19 @@ public class BaseService<TEntity> : IService<TEntity>
     }
     public async Task<OperationResult<IReadOnlyList<TEntity>>> GetAllAsync()
     {
-        return new OperationResult<IReadOnlyList<TEntity>>(await _repository.GetAllAsync());
+        return OperationResult<IReadOnlyList<TEntity>>.Success(await _repository.GetAllAsync());
+    }
+
+    public async Task<OperationResult<IReadOnlyList<TEntity>>> FilterAsync(Expression<Func<TEntity, bool>> predicate)
+    {
+        return OperationResult<IReadOnlyList<TEntity>>.Success(await _repository.FilterAsync(predicate));
+    }
+
+    public async Task<OperationResult<TEntity>> FindAsync(params object[] keyValues)
+    {
+        var entity = await _repository.GetByIdAsync(keyValues);
+        return entity is null ?
+            OperationResult<TEntity>.NotFound($"Entity with key values {string.Join(", ", keyValues)} was not found") :
+            OperationResult<TEntity>.Success(entity);
     }
 }

@@ -4,14 +4,9 @@ using SecureFlight.Infrastructure.Configurations;
 
 namespace SecureFlight.Infrastructure;
 
-public class SecureFlightDbContext : DbContext
+public class SecureFlightDbContext(DbContextOptions<SecureFlightDbContext> options)
+    : DbContext(options)
 {
-    public SecureFlightDbContext(DbContextOptions<SecureFlightDbContext> options)
-        : base(options)
-    {
-            
-    }
-
     public DbSet<Airport> Airports { get; set; }
 
     public DbSet<Passenger> Passengers { get; set; }

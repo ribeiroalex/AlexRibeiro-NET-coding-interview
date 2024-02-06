@@ -5,11 +5,6 @@ namespace SecureFlight.Core.Entities;
 
 public class Flight
 {
-    public Flight()
-    {
-        this.Passengers = new List<Passenger>();
-    }
-
     public long Id { get; set; }
 
     public string Code { get; set; }
@@ -26,7 +21,7 @@ public class Flight
 
     public FlightStatus Status { get; set; }
 
-    public ICollection<Passenger> Passengers { get; set; }
+    public ICollection<Passenger> Passengers { get; set; } = new List<Passenger>();
 
     public List<PassengerFlight> PassengerFlights { get; set; }
 
