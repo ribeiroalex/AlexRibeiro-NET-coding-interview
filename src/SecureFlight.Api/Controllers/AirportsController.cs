@@ -32,7 +32,7 @@ public class AirportsController(
         var airport = await airportRepository.GetByIdAsync(code);
         if (airport is null)
         {
-            return NotFound("Airport with code {code} not found.");
+            return NotFound($"Airport with code {code} not found.");
         }
         var result = airportRepository.Update(airport);
         return MapResultToDataTransferObject<Airport, AirportDataTransferObject>(result);

@@ -11,9 +11,16 @@ namespace SecureFlight.Test
         [Fact]
         public async Task Update_Succeeds()
         {
+            //Arrange
             var testingContext = new SecureFlightDatabaseTestContext();
             testingContext.CreateDatabase();
-            //Your test here:
+            var repository = new BaseRepository<Airport>(testingContext);
+            
+            //TODO: Add test code here
+            //Act
+            
+            
+            //Assert
             
             testingContext.DisposeDatabase();
         }
