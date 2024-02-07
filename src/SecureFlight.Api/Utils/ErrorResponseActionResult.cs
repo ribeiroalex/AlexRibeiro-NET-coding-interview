@@ -5,5 +5,5 @@ namespace SecureFlight.Api.Utils;
 
 public class ErrorResponseActionResult : ActionResult
 {
-    public ErrorResponse Result { get; set; }
+    public required ErrorResponse Result { get; set; }
 }

@@ -4,5 +4,5 @@ namespace SecureFlight.Api.Models;
 
 public class ErrorResponse
 {
-    public Error Error { get; set; }
+    public required Error Error { get; set; }
 }

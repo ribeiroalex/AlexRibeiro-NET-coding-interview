@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices.JavaScript;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using SecureFlight.Api.Models;
@@ -6,15 +7,9 @@ using SecureFlight.Core;
 
 namespace SecureFlight.Api.Controllers;
 
-public class SecureFlightBaseController : ControllerBase
+public class SecureFlightBaseController(IMapper mapper) : ControllerBase
 {
-    private readonly IMapper _mapper;
-
-    public SecureFlightBaseController(IMapper mapper)
-    {
-        _mapper = mapper;
-    }
-    protected IActionResult GetResult<TResult, TDataTransferObject>(OperationResult<TResult> result)
+    protected IActionResult MapResultToDataTransferObject<TResult, TDataTransferObject>(OperationResult<TResult> result)
     {
         if (!result.Succeeded)
         {
@@ -24,13 +19,13 @@ public class SecureFlightBaseController : ControllerBase
                 {
                     Error = new Error
                     {
-                        Code = result.Error.Code,
-                        Message = result.Error.Message
+                        Code = result.ErrorResult.Code,
+                        Message = result.ErrorResult.Message
                     }
                 }
             };
         }
 
-        return Ok(_mapper.Map<TResult, TDataTransferObject>(result));
+        return Ok(mapper.Map<TResult, TDataTransferObject>(result));
     }
 }
