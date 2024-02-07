@@ -11,7 +11,7 @@ The live coding session will be more like a pair programming excercise, we will 
 # Basic requirements
 
 -   Your preferred IDE / Code Editor
--   .Net Core > 3.X
+-   .Net > 8.X
 -   (Optional) Postman
 
 ## Libraries used:
