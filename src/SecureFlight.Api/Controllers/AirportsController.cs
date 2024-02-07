@@ -34,6 +34,10 @@ public class AirportsController(
         {
             return NotFound($"Airport with code {code} not found.");
         }
+
+        airport.City = airportDto.City;
+        airport.Country = airportDto.Country;
+        airport.Name = airportDto.Name;
         var result = airportRepository.Update(airport);
         return MapResultToDataTransferObject<Airport, AirportDataTransferObject>(result);
     }
