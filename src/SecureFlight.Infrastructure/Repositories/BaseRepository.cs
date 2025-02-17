@@ -34,5 +34,10 @@ public class BaseRepository<TEntity>(SecureFlightDbContext context)
         return await context.Set<TEntity>().FindAsync(keyValues);
     }
 
+    public async Task DeleteAsync(TEntity entity)
+    {
+        await Task.Run( () => context.Set<TEntity>().Remove(entity));
+    }
+
     public async Task<int> SaveChangesAsync() => await context.SaveChangesAsync();
 }
